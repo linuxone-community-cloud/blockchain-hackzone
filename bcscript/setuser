@@ -1,0 +1,15 @@
+#!/bin/bash
+set -x
+# Add host name
+ip="$(ifconfig eth0 | grep "inet addr" | cut -d ':' -f 2 | cut -d ' ' -f 1)"
+name=$(hostname)
+echo $ip $name >>/etc/hosts
+
+# Create user blockchain
+sed -i  's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
+systemctl restart sshd
+
+adduser  --disabled-password --gecos "" blockchain
+usermod -aG sudo blockchain
+passwd blockchain
+

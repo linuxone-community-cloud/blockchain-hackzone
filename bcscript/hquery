@@ -1,0 +1,21 @@
+IP=$(getip)
+SECURE=$(getsecure)
+
+ATTR=$(getattr)
+
+i=$(( RANDOM % 2313123133 + 1 ))
+
+#le path
+name=$1
+shift
+args="$@"
+args=$(echo $args | sed -e "s/ /\", \"/g")
+#chain='{ "chaincodeSpec":{ "type": "GOLANG", "chaincodeID":{ "name":"'$name'" }, "ctorMsg":{ "function":"read", "args": [ "'$args'" ] } '$SECURE' '$ATTR' } }'
+
+chain='{ "jsonrpc": "2.0", "method": "query", "params": { "type": 1,  "chaincodeID":{ "name":"'$name'" }, "ctorMsg":{ "function":"read", "args": [ "'$args'" ] } '$SECURE' '$ATTR' } , "id" : '$i' }'
+
+echo curl  -sX POST -H "Content-Type: application/json" -d "$chain"  http://$IP:7050/chaincode
+curl  -sX POST -H "Content-Type: application/json" -d "$chain"  http://$IP:7050/chaincode
+echo
+
+

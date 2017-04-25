@@ -1,0 +1,30 @@
+#à remplacer par une fonction
+IP=$(getip)
+SECURE=$(getsecure)
+#SECURE=',"secureContext": "jyg"'
+
+i=$(( RANDOM % 2313123133 + 1 ))
+
+
+ATTR=$(getattr)
+
+#le path
+name=$1
+shift
+func=$1
+shift
+args="$@"
+args=$(echo $args | sed -e "s/ /\", \"/g")
+echo
+#echo curl  -X POST -H "Content-Type: application/json" -d '{ "type": "GOLANG", "chaincodeID":{ "path":"github.com/openblockchain/obc-peer/openchain/example/chaincode/chaincode_example02" }, "ctorMsg":{ "function":"init", "args": ["a", $a, "b", $b ] },"secureContext": "jyg" }'  http://172.17.0.3:5000/devops/deploy
+#chain='{ "chaincodeSpec":{ "type": "GOLANG", "chaincodeID":{ "name":"'$name'" }, "ctorMsg":{ "function":"'$func'", "args": [ "'$args'" ] } '$SECURE' '$ATTR' } }'
+
+chain='{ "jsonrpc": "2.0", "method": "invoke", "params": { "type": 1,  "chaincodeID":{ "name":"'$name'" }, "ctorMsg":{ "function":"'$func'", "args": [ "'$args'" ] } '$SECURE' '$ATTR' } , "id" : '$i' }'
+
+echo curl  -sX POST -H "Content-Type: application/json" -d "$chain"  http://$IP:7050/chaincode
+echo
+curl  -sX POST -H "Content-Type: application/json" -d "$chain"  http://$IP:7050/chaincode
+
+echo
+echo
+

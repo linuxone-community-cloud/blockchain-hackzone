@@ -1,0 +1,32 @@
+IP=""
+PORT=7050
+while getopts "h:p:" option
+do
+        case $option in
+                h)
+                        IP=$OPTARG
+                        ;;
+                p)
+                        PORT=$OPTARG
+                        ;;
+        esac
+done
+(( OPTIND-- ))
+shift $OPTIND
+
+[[ $IP == "" ]] && IP=$(getip)
+
+
+USERBLOCKCHAIN=$1
+N=$(tty | sed -e s#.*/##g)
+echo $USERBLOCKCHAIN > ~/.userblockchain.$N
+PASS=$2
+
+
+echo
+echo curl -sX POST -H "Content-Type: application/json" -d '{  "enrollId": "'$USERBLOCKCHAIN'", "enrollSecret": "'$PASS'" } }'  http://$IP:$PORT/registrar
+echo
+curl -sX POST -H "Content-Type: application/json" -d '{  "enrollId": "'$USERBLOCKCHAIN'", "enrollSecret": "'$PASS'" } }'  http://$IP:$PORT/registrar
+echo
+
+

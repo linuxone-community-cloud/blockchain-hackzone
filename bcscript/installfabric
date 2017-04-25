@@ -1,0 +1,18 @@
+#!/bin/bash
+# Install Hyperledger fabric
+set -x
+cd /home/blockchain
+apt-get -y update
+apt-get -y install openjdk-8-jdk
+apt-get -y install nodejs-legacy
+apt-get -y install docker.io=1.10.3-0ubuntu6
+curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py"
+apt-get -y install python
+python3 get-pip.py
+pip install docker-compose
+git clone https://github.com/IBM-Blockchain/fabric-images
+echo 'DOCKER_OPTS="--dns 8.8.8.8 --dns 8.8.4.4 -H tcp://127.0.0.1:2375 -H unix:///var/run/docker.sock"' >> /etc/default/docker
+systemctl restart docker
+iptables -I INPUT -p tcp --dport 3000 -j ACCEPT
+
+

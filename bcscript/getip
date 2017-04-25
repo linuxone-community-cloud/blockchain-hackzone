@@ -1,0 +1,2 @@
+echo $(sudo docker inspect -f '{{.NetworkSettings.Networks.dockercompose_default.IPAddress}}' dockercompose_vp0_1)
+

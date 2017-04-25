@@ -1,0 +1,8 @@
+#!/bin/bash
+# Start Hyperledger Explorer
+set -x
+cd /home/blockchain/blockchain-explorer/explorer_1
+ip=$(getip)
+export HYP_REST_ENDPOINT=http://$ip:7050
+node exp-server.js &> /tmp/explorer.log&
+

@@ -1,0 +1,14 @@
+#!/bin/bash
+# Install Marbles application
+set -x
+cd /home/blockchain
+git clone https://github.com/IBM-Blockchain/marbles.git
+cd marbles
+apt-get -y install npm
+npm install gulp -g
+npm install
+apt-get -y update
+rm mycreds_docker_compose.json
+wget https://raw.githubusercontent.com/evalyan/blockchain/master/mycreds_docker_compose.json
+
+

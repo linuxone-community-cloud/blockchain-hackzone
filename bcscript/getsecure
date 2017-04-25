@@ -1,0 +1,10 @@
+N=$(tty | sed -e s#.*/##g)
+U=$(cat ~/.userblockchain.$N)
+if [[ $U == "" ]]
+then
+        echo ""
+else
+        echo ',"secureContext": "'$U'"'
+fi
+
+

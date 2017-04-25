@@ -1,0 +1,10 @@
+N=$(tty | sed -e s#.*/##g)
+if [[ -f ~/.attr.$N  ]]
+then
+        U=$(cat ~/.attr.$N)
+        echo ',"attributes": [ '$U' ]'
+else
+        echo ""
+fi
+
+

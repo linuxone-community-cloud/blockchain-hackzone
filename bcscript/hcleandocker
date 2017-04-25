@@ -1,0 +1,9 @@
+if [ $(sudo docker ps -aq | wc -l) -gt 1 ]; then
+    sudo docker  rm -f $( sudo docker ps -aq)
+fi
+if [ $(sudo docker  images | awk '/vp|none/ { print $3}' | wc -l) -gt 1 ]; then
+    sudo docker  images | awk '/vp|none/ { print $3}' | xargs sudo docker rmi -f
+fi
+rm -fr /var/hyperledger/production/*
+rm -fr /var/hyperledger/production/.membersrvc
+

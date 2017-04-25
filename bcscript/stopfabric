@@ -1,0 +1,5 @@
+#!/bin/bash
+set -x
+cd /home/blockchain/fabric-images/docker-compose
+. setenv.sh
+docker-compose -f four-peer-ca.yaml stop 

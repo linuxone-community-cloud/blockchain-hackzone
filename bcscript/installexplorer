@@ -1,0 +1,10 @@
+#!/bin/bash
+# Install Hyperledger Explorer
+set -x
+cd /home/blockchain
+git clone https://github.com/hyperledger/blockchain-explorer
+cd blockchain-explorer/explorer_1
+sudo npm install npm bower grunt-cli graceful-fs@4.1.5 minimatch@3.0.3 -g
+npm install socket.io express grunt grunt-auto-install grunt-contrib-uglify grunt-contrib-copy
+grunt
+

@@ -1,0 +1,6 @@
+#!/bin/bash
+set -x
+cd /home/blockchain/marbles
+sed -i  "s/172.18.0.2/$(getip)/g" mycreds_docker_compose.json
+gulp &> /tmp/startmarbles.log&
+
