@@ -2,7 +2,7 @@
 # Install Marbles application
 set -x
 cd /home/blockchain
-git clone https://github.com/IBM-Blockchain/marbles.git
+git clone -b v2.0 https://github.com/IBM-Blockchain/marbles.git
 cd marbles
 apt-get -y install npm
 npm install gulp -g
